@@ -17,7 +17,6 @@ const getItems = async (location: string | any) => {
 export default async function page() {
     const session = await getServerSession(authOption)
     const items: Array<IItem> = await getItems(session?.user.address?.city)
-    console.log(items)
     return (
         <main className="min-h-screen py-[120px]">
             <Carousel

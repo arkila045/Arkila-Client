@@ -61,7 +61,7 @@ export default function Carousel({ items }: IProps) {
                         }}
                     >
                         {items.map((item, index) => (
-                            <SwiperSlide key={index} className='rounded-lg'>
+                            <SwiperSlide key={index} className='rounded-lg drop-shadow-md'>
                                 <Image className='object-cover w-[512px] h-[512px]' src={item.imageURL || '/sample_instrument.png'} alt='instrument' height={512} width={512} />
                             </SwiperSlide>
                         ))}
