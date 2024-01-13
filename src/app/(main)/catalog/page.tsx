@@ -116,6 +116,7 @@ export default async function page({ searchParams }: IProps) {
 
                         {items.map((item, index) => (
                             <ItemCard
+                                key={index}
                                 item={item}
                             />
                         ))}

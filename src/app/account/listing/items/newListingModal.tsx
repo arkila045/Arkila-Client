@@ -12,7 +12,6 @@ interface IProps {
 }
 
 export default function NewListingModal({ isModalOpen, close, item: currentItem }: IProps) {
-    if (!isModalOpen) return
     const [step, setStep] = useState<number>(0)
     const [item, setItem] = useState<IItem>({
         title: currentItem?.title || '',
@@ -32,6 +31,9 @@ export default function NewListingModal({ isModalOpen, close, item: currentItem 
         }
         close()
     }, [item])
+
+
+    if (!isModalOpen) return
 
     return (
         <div className="fixed top-0 left-0 bg-black bg-opacity-50 w-full h-full z-[99] flex items-center justify-center">

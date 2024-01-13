@@ -4,7 +4,7 @@ import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 import { useRef } from 'react'
 
-export default function userProfileDropdown() {
+export default function UserProfileDropdown() {
     const ref = useRef<any>()
     const [toggle, setToggle] = useDropdown(false, ref)
     return (
