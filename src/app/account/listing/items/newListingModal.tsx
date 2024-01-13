@@ -29,6 +29,7 @@ export default function NewListingModal({ isModalOpen, close, item: currentItem 
         else {
             await addItem(item)
         }
+        setStep(0)
         close()
     }, [item])
 
