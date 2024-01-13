@@ -23,18 +23,18 @@ export default function Carousel({ items }: IProps) {
                     <div>
                         <h1 className="font-bold text-3xl">TOP <span className="text-primary">RENTED</span> ITEMS</h1>
                         <div className="mt-[6px]">
-                            <h1 className="font-bold text-5xl leading-relaxed capitalize">{items[currentSlide].title}</h1>
-                            <h2 className='flex items-center gap-2 text-xs capitalize'><HiMapPin className='text-main-black' size={24} /> {items[currentSlide].owner?.address?.city}</h2>
+                            <h1 className="font-bold text-5xl leading-relaxed capitalize">{items[currentSlide]?.title}</h1>
+                            <h2 className='flex items-center gap-2 text-xs capitalize'><HiMapPin className='text-main-black' size={24} /> {items[currentSlide]?.owner?.address?.city}</h2>
                             <p className='mt-2'>
-                                {items[currentSlide].description}
+                                {items[currentSlide]?.description}
                             </p>
                             <div className="flex items-center gap-2 mt-4">
                                 <Link
-                                    href={'/item/' + items[currentSlide]._id}
+                                    href={'/item/' + items[currentSlide]?._id}
                                     className="px-8 py-2 text-white bg-primary rounded-xl font-semibold text-2xl hover:bg-red-800 duration-300">
                                     RENT NOW
                                 </Link>
-                                <h2 className="text-xl text-primary">₱ {items[currentSlide].pricePerDay} / day</h2>
+                                <h2 className="text-xl text-primary">₱ {items[currentSlide]?.pricePerDay} / day</h2>
                             </div>
                         </div>
                     </div>
