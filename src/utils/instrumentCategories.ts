@@ -5,27 +5,47 @@ interface IOption {
 }
 export const categories: Array<IOption> = [
     {
-        label: 'String Instruments',
-        value: 'string instruments'
+        label: 'Appliances',
+        value: 'appliances'
     },
     {
-        label: 'Woodwind Instruments',
-        value: 'woodwind instruments'
+        label: 'Backdrop',
+        value: 'backdrop'
     },
     {
-        label: 'Brass Instruments',
-        value: 'brass instruments'
+        label: 'Costumes',
+        value: 'costumess'
     },
     {
-        label: 'Percussion Instruments',
-        value: 'percussion instruments'
+        label: 'Decoration',
+        value: 'decoration'
     },
     {
-        label: 'Keyboard Instruments',
-        value: 'keyboard instruments'
+        label: 'Electronics',
+        value: 'electronics'
     },
     {
-        label: 'Electronic Instruments',
-        value: 'electronic instruments'
+        label: 'Fashion Accessories',
+        value: 'fashion accessories'
+    },
+    {
+        label: 'Furniture',
+        value: 'furniture'
+    },
+    {
+        label: 'Musical Instruments',
+        value: 'musical instruments'
+    },
+    {
+        label: 'Outdoor Equipments',
+        value: 'outdoor equipments'
+    },
+    {
+        label: 'Tools',
+        value: 'tools'
+    },
+    {
+        label: 'Others',
+        value: 'others'
     }
 ];
