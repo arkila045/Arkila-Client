@@ -77,3 +77,27 @@ export const editItem = async (itemId: string | any, item: IItem) => {
         return e.message
     }
 }
+
+export const requestUpgrade = async (userId: string) => {
+    try {
+        const res = await fetch(`${process.env.API_URI}/api/v1/upgrade`, {
+            cache: 'no-store',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                user: userId,
+                details: '+3 Slots upgrade',
+                price: 999,
+            })
+        })
+        await res.json()
+        if (!res.ok) throw new Error('Failed to request upgrade.')
+        return true
+    } catch (e: any) {
+        console.log('Request upgrade: ' + e.message)
+    }
+
+    return false
+}

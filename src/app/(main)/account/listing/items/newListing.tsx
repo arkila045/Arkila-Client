@@ -5,10 +5,22 @@ import NewListingModal from './newListingModal'
 import { IUser } from '@/models/UserModel'
 import { IItem } from '@/models/ItemModel'
 import useDropdown from '@/hooks/useDropdown'
+import { useSession } from 'next-auth/react'
+import { requestUpgrade } from './action'
+import { useFormStatus } from 'react-dom'
 
 interface IProps {
     user: IUser,
     items: Array<IItem>
+}
+
+const SubmitButton = () => {
+    const { pending } = useFormStatus()
+    return (
+        <button disabled={pending} className='text-white text-xl py-4 w-full bg-primary rounded-md mt-4'>
+            {pending ? 'Loading' : 'Upgrade Now'}
+        </button>
+    )
 }
 
 export default function NewListing({ user, items }: IProps) {
@@ -23,7 +35,11 @@ export default function NewListing({ user, items }: IProps) {
             />
 
             {upgradeModal && (
-                <div className='fixed inset-0 h-screen w-full bg-black bg-opacity-30 z-50 flex justify-center items-center text-center'>
+                <form action={async (formData: FormData) => {
+                    const isSuccess = await requestUpgrade(String(formData.get('userId')))
+                    if (isSuccess) setUpgradeModal(false)
+                }} className='fixed inset-0 h-screen w-full bg-black bg-opacity-30 z-50 flex justify-center items-center text-center'>
+                    <input type="hidden" name="userId" value={user._id} />
                     <div ref={upgradeModalRef} className='bg-white rounded-2xl p-4 w-[617px]'>
                         <h1 className='font-bold text-3xl'>Add more slots</h1>
                         <div className='flex flex-col gap-4 mt-10'>
@@ -32,9 +48,9 @@ export default function NewListing({ user, items }: IProps) {
                             <h3>Upgrade now and boost your listings!</h3>
                         </div>
                         <h2 className='text-2xl font-bold text-primary mt-8'>₱  999.00</h2>
-                        <button className='text-white text-xl py-4 w-full bg-primary rounded-md mt-4'>Upgrade Now</button>
+                        <SubmitButton />
                     </div>
-                </div>
+                </form>
             )}
 
 

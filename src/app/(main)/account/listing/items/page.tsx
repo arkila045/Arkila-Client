@@ -18,7 +18,7 @@ const getUser = async (userId: string | any) => {
 export default async function page() {
     const session = await getServerSession(authOption)
     const items: Array<IItem> = await getItems(session?.user._id)
-    const user: IUser = await getItems(session?.user._id)
+    const user: IUser = await getUser(session?.user._id)
     return (
         <section className='mt-3'>
             <div className='grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8'>

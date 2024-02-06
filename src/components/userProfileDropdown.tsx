@@ -1,10 +1,11 @@
 import useDropdown from '@/hooks/useDropdown'
 import { HiOutlineUser } from '@react-icons/all-files/hi2/HiOutlineUser'
-import { signOut } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useRef } from 'react'
 
 export default function UserProfileDropdown() {
+    const { data } = useSession()
     const ref = useRef<any>()
     const [toggle, setToggle] = useDropdown(false, ref)
     return (
@@ -23,6 +24,13 @@ export default function UserProfileDropdown() {
                             href={'/account/requests/pending'}>
                             My requests
                         </Link>
+                        {data?.user.role === 'admin' && (
+                            <Link
+                                className='p-4 '
+                                href={'/admin/dashboard'}>
+                                Admin dashboard
+                            </Link>
+                        )}
                         <button
                             onClick={() => signOut()}
                             className='p-4 text-left'>

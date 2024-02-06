@@ -16,10 +16,11 @@ export interface IUser {
     username?: string,
     contactNo?: string,
     password?: string
-    role?: string,
+    role?: 'user' | 'admin',
     accountType?: string,
     socket: Array<string>,
     itemSlots?: number,
     qa_work?: string,
     qa_role?: string,
+    createdAt?: Date,
 }

@@ -13,7 +13,7 @@ export default function Footer() {
                 <Link href={'https://www.tiktok.com/@arkila_philippines'} target='_blank'><FaTiktok size={40} /></Link>
             </div>
             <div className='flex gap-10'>
-                <Link href={'/'}>FAQs</Link>
+                <Link href={'/faqs'}>FAQs</Link>
                 <Link href={'/'}>Terms of Service</Link>
                 <Link href={'/guide'}>How does it work</Link>
             </div>
