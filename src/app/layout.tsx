@@ -4,6 +4,7 @@ import './globals.css'
 import Navbar from '@/components/navbar'
 import Provider from './provider'
 import Chat from '@/components/chat/chat'
+import Footer from '@/components/footer'
 
 
 const montserrat = Montserrat({ subsets: ['latin'] })
@@ -23,6 +24,7 @@ export default async function RootLayout({
         <Provider>
           <Navbar />
           {children}
+          <Footer />
           <Chat />
         </Provider>
       </body>

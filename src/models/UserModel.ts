@@ -19,5 +19,7 @@ export interface IUser {
     role?: string,
     accountType?: string,
     socket: Array<string>,
-    itemSlots?: number
+    itemSlots?: number,
+    qa_work?: string,
+    qa_role?: string,
 }

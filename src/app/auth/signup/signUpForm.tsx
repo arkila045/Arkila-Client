@@ -5,7 +5,7 @@ import { Roboto } from 'next/font/google'
 import InputBox from '@/components/inputBox'
 import { useFormState, useFormStatus } from 'react-dom'
 import { IState } from '@/types/initialStateType'
-import { signUp, validate } from './action'
+import { signUp, validate, validateStepTwo } from './action'
 import { cities } from '@/utils/cities'
 const roboto = Roboto({ weight: '400', subsets: ['latin'] })
 
@@ -20,6 +20,8 @@ export interface ISignUpState extends IState {
     address?: string | null,
     barangay?: string | null,
     city?: string | null,
+    work?: string | null,
+    role?: string | null
 }
 
 const initialState: ISignUpState = {
@@ -33,14 +35,16 @@ const SignUpButton = ({ step }: { step: number }) => {
         <button
             disabled={pending}
             className='py-3 bg-primary text-white w-full font-medium text-xl rounded-xl mt-2 hover:bg-red-800'>
-            {pending ? 'Loading' : step === 0 ? 'Continue' : 'Sign up'}
+            {pending ? 'Loading' : step !== 2 ? 'Continue' : 'Sign up'}
         </button>
     )
 }
 
+
 export default function SignUpForm() {
     const [step, setStep] = useState<number>(0)
-    const [stepOneStatus, validateStepOne] = useFormState(validate, initialState)
+    const [stepOneStatus, validateStepOneAction] = useFormState(validate, initialState)
+    const [stepTwoStatus, validateStepTwoAction] = useFormState(validateStepTwo, initialState)
     const [status, signUpAction] = useFormState(signUp, initialState)
 
     useEffect(() => {
@@ -49,8 +53,14 @@ export default function SignUpForm() {
         }
     }, [stepOneStatus])
 
+    useEffect(() => {
+        if (stepTwoStatus?.success) {
+            setStep(2)
+        }
+    }, [stepTwoStatus])
+
     return (
-        <form action={step === 0 ? validateStepOne : signUpAction} className="p-8 bg-white rounded-3xl h-fit w-full max-w-[512px]">
+        <form action={step === 2 ? signUpAction : step === 0 ? validateStepOneAction : validateStepTwoAction} className="p-8 bg-white rounded-3xl h-fit w-full max-w-[512px]" >
             <h1 className="font-medium text-[55px]">Sign up</h1>
             <div className={`${step === 0 ? 'flex' : 'hidden'} flex-col gap-8 mt-8`}>
                 <InputBox
@@ -102,6 +112,34 @@ export default function SignUpForm() {
             </div>
 
             <div className={`${step === 1 ? 'flex' : 'hidden'} flex-col gap-8 mt-8`}>
+                <div className="flex flex-col w-full gap-2 relative">
+                    <label htmlFor={'qa-work'}>What kind of work do you do?</label>
+                    <select id='qa-work' name='qa-work' className='w-full py-[19.6px]  rounded-xl border border-opacity-30 border-black outline-main-blue'>
+                        <option value="">Select</option>
+                        <option value={'student'}>Student</option>
+                        <option value={'employee'}>Employee/Profesionals</option>
+                        <option value={'business-owners'}>Business owners</option>
+                        <option value={'not-working'}>Not working</option>
+                    </select>
+                    {stepTwoStatus?.work && (
+                        <label htmlFor={'qa-work'} className="text-xs text-red-600">{stepTwoStatus.work}</label>
+                    )}
+                </div>
+                <div className="flex flex-col w-full gap-2 relative">
+                    <label htmlFor={'qa-role'}>What role do you identify with most?</label>
+                    <select id='qa-role' name='qa-role' className='w-full py-[19.6px]  rounded-xl border border-opacity-30 border-black outline-main-blue'>
+                        <option value="">Select</option>
+                        <option value={'renter'}>Renter</option>
+                        <option value={'owner'}>Owner</option>
+                        <option value={'both'}>Both</option>
+                    </select>
+                    {stepTwoStatus?.role && (
+                        <label htmlFor={'qa-role'} className="text-xs text-red-600">{stepTwoStatus.role}</label>
+                    )}
+                </div>
+            </div>
+
+            <div className={`${step === 2 ? 'flex' : 'hidden'} flex-col gap-8 mt-8`}>
                 <InputBox
                     id='email'
                     label='Enter your email address'
@@ -136,17 +174,19 @@ export default function SignUpForm() {
                     error={status.password}
                 />
             </div>
-            {step === 1 && (
-                <div className='flex mt-4 text-base gap-2'>
-                    <input
-                        id="agree"
-                        type="checkbox" />
+            {
+                step === 2 && (
+                    <div className='flex mt-4 text-base gap-2'>
+                        <input
+                            id="agree"
+                            type="checkbox" />
 
-                    <label htmlFor="agree" className={`${roboto.className}`}>
-                        I have read and agree to the <button type='button' className='text-main-blue'>Terms and Condition</button>
-                    </label>
-                </div>
-            )}
+                        <label htmlFor="agree" className={`${roboto.className}`}>
+                            I have read and agree to the <button type='button' className='text-main-blue'>Terms and Condition</button>
+                        </label>
+                    </div>
+                )
+            }
 
             <div className='mt-[52px] text-xs text-red-600'>{status.message}</div>
             <SignUpButton
@@ -156,6 +196,6 @@ export default function SignUpForm() {
             <div className='mt-4 text-[13px] text-center'>
                 Already have an account? <Link href={'/auth/signin'} className='text-main-blue'>Sign in</Link>
             </div>
-        </form>
+        </form >
     )
 }

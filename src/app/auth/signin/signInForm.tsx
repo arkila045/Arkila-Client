@@ -3,8 +3,12 @@ import InputBox from "@/components/inputBox"
 import { FcGoogle } from "@react-icons/all-files/fc/FcGoogle"
 import Link from "next/link"
 import { useFormState, useFormStatus } from "react-dom"
-import { signIn } from "./action"
+// import { signIn } from "./action"
 import { IState } from "@/types/initialStateType"
+import { signIn } from "next-auth/react"
+import { z } from "zod"
+import { useState } from "react"
+import { useRouter } from "next/navigation"
 
 export interface ISignInState extends IState {
     username?: string | null,
@@ -15,6 +19,11 @@ const initialState: ISignInState = {
     success: false,
     message: null,
 }
+
+const signInSchema = z.object({
+    username: z.string().min(1, { message: 'Username or email is required.' }),
+    password: z.string().min(1, { message: 'Password is required' })
+})
 
 const SignInButton = () => {
     const { pending } = useFormStatus()
@@ -29,9 +38,41 @@ const SignInButton = () => {
 }
 
 export default function SignInForm() {
-    const [status, signInAction] = useFormState(signIn, initialState)
+    // const [status, signInAction] = useFormState(signIn, initialState)
+    const router = useRouter()
+    const [errorMessage, setErrorMessage] = useState<string | any>('')
     return (
-        <form action={signInAction} className="p-8 bg-white rounded-3xl h-fit w-full max-w-lg">
+        <form action={async (formData: FormData) => {
+            try {
+                const signInClean = await signInSchema.parse({
+                    username: formData.get('username'),
+                    password: formData.get('password')
+                })
+
+                const signInStatus = await signIn('credentials', {
+                    username: signInClean.username,
+                    password: signInClean.password,
+                    callbackUrl: '/',
+                    redirect: false
+                })
+
+                if (signInStatus?.ok) {
+                    router.replace('/')
+                }
+                else {
+                    setErrorMessage(signInStatus?.error)
+                }
+
+            } catch (e) {
+                if (e instanceof z.ZodError) {
+                    setErrorMessage(e.errors[0].message)
+                }
+                else if (e instanceof Error) {
+                    setErrorMessage(e.message)
+                }
+            }
+
+        }} className="p-8 bg-white rounded-3xl h-fit w-full max-w-lg">
             <h1 className="font-medium text-[55px]">Sign in</h1>
             <button
                 type="button"
@@ -45,7 +86,6 @@ export default function SignInForm() {
                     label="Enter your username or email address"
                     placeholder="Username or email address"
                     type="text"
-                    error={status.username}
                 />
 
                 <InputBox
@@ -53,7 +93,6 @@ export default function SignInForm() {
                     label="Enter your Password"
                     placeholder="Password"
                     type="password"
-                    error={status.password}
                 />
             </div>
 
@@ -65,7 +104,7 @@ export default function SignInForm() {
                 </button>
             </div>
 
-            <div className="mt-[52px] text-xs text-red-600">{status.message}</div>
+            <div className="mt-[52px] text-xs text-red-600">{errorMessage}</div>
             <SignInButton />
             <div className='mt-4 text-[13px] text-center'>
                 No Account ?  <Link href={'/auth/signup'} className='text-main-blue'>Sign up</Link>

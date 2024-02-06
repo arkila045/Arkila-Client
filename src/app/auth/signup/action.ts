@@ -19,6 +19,10 @@ const stepOne = z.object({
     city: z.string().min(1, { message: 'City is required.' })
 })
 
+const stepTwo = z.object({
+    work: z.string().min(1, { message: 'Required.' }),
+    role: z.string().min(1, { message: 'Required.' })
+})
 
 export const signUp = async (prevState: any, formData: FormData) => {
     const result: ISignUpState = {
@@ -51,7 +55,9 @@ export const signUp = async (prevState: any, formData: FormData) => {
                 lastName: formData.get('lastName'),
                 address: formData.get('address'),
                 barangay: formData.get('barangay'),
-                city: formData.get('city')
+                city: formData.get('city'),
+                qa_work: formData.get('qa-work'),
+                qa_role: formData.get('qa-role')
             })
         })
         const data = await res.json()
@@ -98,6 +104,37 @@ export const validate = async (prevState: any, formData: FormData) => {
             address: formData.get('address'),
             barangay: formData.get('barangay'),
             city: formData.get('city')
+        })
+        result.success = true
+        return result
+    } catch (e) {
+        if (e instanceof z.ZodError) {
+            e.errors.map((value, index) => {
+                const indexResult = value.path[0].toString()
+                if (!result[indexResult]) {
+                    result[indexResult] = value.message
+                }
+            })
+        }
+        if (e instanceof Error) {
+            result.message = e.message
+        }
+        return result
+    }
+}
+
+export const validateStepTwo = async (prevState: any, formData: FormData) => {
+    const result: ISignUpState = {
+        success: false,
+        message: null,
+        work: null,
+        role: null
+    }
+
+    try {
+        await stepTwo.parse({
+            work: formData.get('qa-work'),
+            role: formData.get('qa-role'),
         })
         result.success = true
         return result

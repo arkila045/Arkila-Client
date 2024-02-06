@@ -31,8 +31,8 @@ export default function Navbar() {
         [searchParams, status]
     )
     return (
-        <nav className="bg-white absolute h-[88px] w-full drop-shadow-sm px-5 md:px-0 flex z-50">
-            <section className="flex justify-between items-center w-full container mx-auto">
+        <nav className="bg-white absolute h-[104px]  md:h-[88px] w-full drop-shadow-sm px-5 md:px-0 flex z-50">
+            <section className="flex flex-col md:flex-row py-2 justify-between items-center w-full container mx-auto md:gap-5">
                 {searchBar && (
                     <div className='absolute top-0 left-0 h-full w-full flex items-center bg-white px-5 md:hidden z-50'>
                         <div className='relative w-full'>
@@ -76,6 +76,7 @@ export default function Navbar() {
 
                     {status === 'unauthenticated' && (
                         <>
+                            <Link href={'/guide'}>How it works</Link>
                             <Link href={'/auth/signin'}>Login</Link>
                             <Link href={'/auth/signup'} className="px-8 py-4 bg-primary text-white rounded-[30px] hover:bg-red-800 duration-300">Register</Link>
                         </>
