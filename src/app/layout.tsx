@@ -22,9 +22,7 @@ export default async function RootLayout({
     <html lang="en">
       <body className={montserrat.className + ' bg-[#F9F9FA]'}>
         <Provider>
-          <Navbar />
           {children}
-          <Footer />
           <Chat />
         </Provider>
       </body>

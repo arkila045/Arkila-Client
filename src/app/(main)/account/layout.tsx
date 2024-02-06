@@ -4,7 +4,7 @@ import React from 'react'
 import Navigation from './navigation'
 import { IUser } from '@/models/UserModel'
 import { getServerSession } from 'next-auth'
-import { authOption } from '../api/auth/[...nextauth]/route'
+import { authOption } from '../../api/auth/[...nextauth]/route'
 
 interface IProps {
     children: React.ReactNode

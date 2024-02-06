@@ -1,5 +1,5 @@
 'use client'
-import NewListingModal from '@/app/account/listing/items/newListingModal'
+import NewListingModal from '@/app/(main)/account/listing/items/newListingModal'
 import useDropdown from '@/hooks/useDropdown'
 import { IItem } from '@/models/ItemModel'
 import { BsThreeDots } from '@react-icons/all-files/bs/BsThreeDots'
