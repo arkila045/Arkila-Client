@@ -5,47 +5,108 @@ interface IOption {
 }
 export const categories: Array<IOption> = [
     {
-        label: 'Appliances',
-        value: 'appliances'
+        label: 'A-line',
+        value: 'a-line'
     },
     {
-        label: 'Backdrop',
-        value: 'backdrop'
+        label: 'Trumpet',
+        value: 'trumpet'
     },
     {
-        label: 'Costumes',
-        value: 'costumess'
+        label: 'Mermaid',
+        value: 'mermaid'
     },
     {
-        label: 'Decoration',
-        value: 'decoration'
+        label: 'Sheath',
+        value: 'sheath'
     },
     {
-        label: 'Electronics',
-        value: 'electronics'
+        label: 'Cocktail',
+        value: 'cocktail'
     },
     {
-        label: 'Fashion Accessories',
-        value: 'fashion accessories'
+        label: 'Tea-length',
+        value: 'tea-length'
     },
     {
-        label: 'Furniture',
-        value: 'furniture'
+        label: 'High-low',
+        value: 'high-low'
     },
     {
-        label: 'Musical Instruments',
-        value: 'musical instruments'
+        label: 'Two-Piece',
+        value: 'two-piece'
     },
     {
-        label: 'Outdoor Equipments',
-        value: 'outdoor equipments'
+        label: 'Column',
+        value: 'column'
     },
     {
-        label: 'Tools',
-        value: 'tools'
+        label: 'Ballerina',
+        value: 'ballerina'
     },
     {
-        label: 'Others',
-        value: 'others'
-    }
+        label: 'Princess',
+        value: 'princess'
+    },
+    {
+        label: 'Fit and Flare',
+        value: 'fit and flare'
+    },
+    {
+        label: 'Pencil',
+        value: 'pencil'
+    },
+    {
+        label: 'Filipiniana',
+        value: 'filipiniana'
+    },
+    //MEN,
+    {
+        label: 'Tuxedo',
+        value: 'tuxedo'
+    },
+    {
+        label: 'Suit',
+        value: 'suit'
+    },
+    {
+        label: 'Dinner Jacket',
+        value: 'dinner Jacket'
+    },
+    {
+        label: 'Morning Coat',
+        value: 'morning Coat'
+    },
+    {
+        label: 'Tailcoat',
+        value: 'tailcoat'
+    },
+    {
+        label: 'Lounge Suit',
+        value: 'lounge suit'
+    },
+    {
+        label: 'Dress Shirt',
+        value: 'dress shirt'
+    },
+    {
+        label: 'Waistcoat (Vest)',
+        value: 'waistcoat'
+    },
+    {
+        label: 'Trousers',
+        value: 'trousers'
+    },
+    {
+        label: 'Bow Tie',
+        value: 'bow tie'
+    },
+    {
+        label: 'Cummerbund',
+        value: 'cummerbund'
+    },
+    {
+        label: 'Barong',
+        value: 'barong'
+    },
 ];
